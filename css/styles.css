@@ -1,0 +1,36 @@
+.btn-primary {
+    background-color: #132D8F;
+}
+
+h1 {
+    color: #132D8F;
+}
+
+td a {
+    color:  #5871CC;
+}
+
+.bg-custom {
+    background-color: #132D8F;
+}
+
+body {
+    font-family:'Montserrat', sans-serif;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+#page-content {
+    flex: 1 0 auto;
+}
+
+#sticky-footer {
+    flex-shrink: 0;
+}
+
+img .img-thumb {
+    width: 100px;
+}

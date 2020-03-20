@@ -1,4 +1,5 @@
 <?php
+$title = 'login';
 require_once('header.php');
 ?>
 
@@ -34,5 +35,6 @@ require_once('header.php');
 
 <script src="js/scripts.js"></script>
 
-</body>
-</html>
+<?php
+require_once('footer.php');
+?>

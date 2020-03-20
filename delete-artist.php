@@ -9,30 +9,37 @@
 <?php
 //auth check
 session_start();
-if (empty($_SESSION['userId'])){
-    header("location:login.php");
-    exit();
-}
+require_once 'auth.php';
+//if (empty($_SESSION['userId'])){
+//    header("location:login.php");
+//    exit();
+//}
+
 
 //parse the artist id from the url parameter
 $artistId = $_GET['artistId'];
+try {
 
 //connect to the database
-$db = new PDO('mysql:host=172.31.22.43;dbname=Stella_R1121192', 'Stella_R1121192', '7s_DY1Cl8t');
+    require_once 'db.php';
 
 //create sql delete command
-$sql = "DELETE FROM artists WHERE artistId= :artistId";
+    $sql = "DELETE FROM artists WHERE artistId= :artistId";
 
 //pass the artistId parameter to the command
-$cmd = $db->prepare($sql);
-$cmd->bindParam(':artistId', $artistId, PDO::PARAM_INT);
+    $cmd = $db->prepare($sql);
+    $cmd->bindParam(':artistId', $artistId, PDO::PARAM_INT);
 
 //execute the deletion
-$cmd->execute();
+    $cmd->execute();
 
 //disconnect
-$db = null;
-
+    $db = null;
+}
+catch (Exception $e){
+    header("location:error.php");
+    exit();
+}
 //redirect back to updates artists-list page -- add in last
 header('location:artists-list.php');
 ?>

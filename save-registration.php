@@ -29,33 +29,38 @@ if ($ok) {
     //hash password
     $password = password_hash($password, PASSWORD_DEFAULT);
     //echo $password;
+    try {
 
-    //connect
-    $db = new PDO('mysql:host=172.31.22.43;dbname=Stella_R1121192','Stella_R1121192','7s_DY1Cl8t');
+        //connect
+        require_once 'db.php';
 
-    //duplicate check
-    $sql = "SELECT * FROM users WHERE username = :username";
-    $cmd = $db->prepare($sql);
-    $cmd->bindParam(':username',$username, PDO::PARAM_STR,50);
-    $cmd->execute();
-    $user = $cmd->fetch();
-
-    if (!empty($user)){
-        echo 'Username already exists<br/>';
-    }
-    else {
-        //set up & run insert
-        $sql = "INSERT INTO users (username, password) VALUES (:username, :password)";
+        //duplicate check
+        $sql = "SELECT * FROM users WHERE username = :username";
         $cmd = $db->prepare($sql);
-        $cmd->bindParam(':username',$username, PDO::PARAM_STR,50);
-        $cmd->bindParam(':password', $password, PDO::PARAM_STR, 255);
+        $cmd->bindParam(':username', $username, PDO::PARAM_STR, 50);
         $cmd->execute();
-    }
+        $user = $cmd->fetch();
 
-    //disconnect
-    $db=null;
-    // redirect to login page
-    header('location:login.php');
+        if (!empty($user)) {
+            echo 'Username already exists<br/>';
+        } else {
+            //set up & run insert
+            $sql = "INSERT INTO users (username, password) VALUES (:username, :password)";
+            $cmd = $db->prepare($sql);
+            $cmd->bindParam(':username', $username, PDO::PARAM_STR, 50);
+            $cmd->bindParam(':password', $password, PDO::PARAM_STR, 255);
+            $cmd->execute();
+        }
+
+        //disconnect
+        $db = null;
+        // redirect to login page
+        header('location:login.php');
+    }
+    catch (Exception $e){
+        header("location:error.php");
+        exit();
+    }
 }
 
 ?>

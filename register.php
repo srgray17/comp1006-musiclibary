@@ -1,4 +1,5 @@
 <?php
+$title = 'Register';
 require_once('header.php');
 ?>
 
@@ -12,18 +13,21 @@ require_once('header.php');
         <fieldset class="form-group">
             <label for="password" class="col-md-2">Password:</label>
             <input type="password" name="password" id="password" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"/>
+            <img id="showHideIcon" src="img/show.png" alt="Show/Hide Icon" onclick="showHidePassword();">
         </fieldset>
         <fieldset class="form-group">
             <label for="confirm" class="col-md-2">Confirm Password:</label>
-            <input type="password" name="confirm" id="confirm" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" />
+            <input type="password" name="confirm" id="confirm" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" onkeyup="return comparePasswords();" />
+            <span id="pwMsg"></span>
         </fieldset>
         <div class="offset-md-2">
-            <input type="submit" value="Register" class="btn btn-info" />
+            <input type="submit" value="Register" class="btn btn-info" onclick="return comparePasswords();" />
         </div>
     </form>
 </main>
 
 <script src="js/scripts.js"></script>
 
-</body>
-</html>
+<?php
+require_once('footer.php');
+?>
